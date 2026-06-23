@@ -1,0 +1,30 @@
+{
+  "SQ.Sheet.Hero": "Hero Sheet",
+  "SQ.Sheet.Enemy": "Enemy Sheet",
+  "SQ.Sheet.Objective": "Objective",
+  "SQ.Sheet.Item": "Item Sheet",
+
+  "SQ.Condition.Afflicted": "Afflicted",
+  "SQ.Condition.Crippled": "Crippled",
+  "SQ.Condition.Diseased": "Diseased",
+  "SQ.Condition.Impaired": "Impaired",
+  "SQ.Condition.Shaken": "Shaken",
+
+  "SQ.Campaign.Title": "Campaign Tracker",
+  "SQ.AI.Title": "AI Helper",
+  "SQ.AI.NearestHero": "Move toward / target the nearest Hero",
+  "SQ.AI.Goal": "Pursue the current AI goal / objective",
+  "SQ.AI.Shoot": "Shoot",
+  "SQ.AI.Charge": "Charge",
+  "SQ.AI.Rush": "Rush",
+
+  "TYPES.Actor.hero": "Hero",
+  "TYPES.Actor.enemy": "Enemy",
+  "TYPES.Actor.objective": "Objective",
+  "TYPES.Item.weapon": "Weapon",
+  "TYPES.Item.skill": "Skill",
+  "TYPES.Item.spell": "Spell",
+  "TYPES.Item.consumable": "Consumable",
+  "TYPES.Item.injury": "Injury",
+  "TYPES.Item.specialRule": "Special Rule"
+}

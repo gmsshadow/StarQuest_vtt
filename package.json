@@ -1,0 +1,16 @@
+{
+  "name": "star-quest",
+  "version": "0.1.0",
+  "description": "Foundry VTT v14 game system for One Page Rules' Grimdark Future: Star Quest",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}

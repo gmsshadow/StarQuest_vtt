@@ -1,0 +1,41 @@
+<div class="sq-campaign-body">
+  {{#if hero}}
+    <header class="sq-panel-header">
+      <img src="{{hero.img}}" alt="hero"/>
+      <div>
+        <strong>{{hero.name}}</strong>
+        <div class="sq-panel-sub">Lvl {{system.level}} · {{system.xp}} XP · {{system.credits}}c</div>
+      </div>
+    </header>
+
+    <div class="sq-panel-section">
+      <h4>Experience</h4>
+      <div class="sq-btn-row">
+        <button type="button" data-action="addXP" data-amount="1">+1 XP</button>
+        <button type="button" data-action="addXP" data-amount="5">+5 XP</button>
+        <button type="button" data-action="levelUp">Level Up</button>
+      </div>
+    </div>
+
+    <div class="sq-panel-section">
+      <h4>Credits</h4>
+      <div class="sq-btn-row">
+        <button type="button" data-action="spendCredits" data-amount="10">−10c</button>
+        <button type="button" data-action="spendCredits" data-amount="50">−50c</button>
+      </div>
+    </div>
+
+    <div class="sq-panel-section">
+      <h4>Injuries</h4>
+      {{#if injuries.length}}
+        <ul class="sq-injury-list">
+          {{#each injuries}}<li>{{name}}</li>{{/each}}
+        </ul>
+      {{else}}
+        <p class="sq-empty">None. Drag an Injury item onto the hero to apply one.</p>
+      {{/if}}
+    </div>
+  {{else}}
+    <p class="sq-empty">Select a Hero token (or own a Hero actor) to use the campaign tracker.</p>
+  {{/if}}
+</div>

@@ -1,0 +1,143 @@
+/* Grimdark Future: Star Quest — system styles. Scoped under .star-quest. */
+
+.star-quest {
+  --sq-bg: #12161d;
+  --sq-panel: #1b212b;
+  --sq-line: #2c3644;
+  --sq-text: #d8dee9;
+  --sq-accent: #4fd1c5;
+  --sq-accent-dim: #2c7a75;
+  --sq-warn: #e06c75;
+  --sq-good: #98c379;
+  --sq-font: "Roboto", "Segoe UI", sans-serif;
+}
+
+.star-quest .window-content,
+.star-quest form {
+  background: var(--sq-bg);
+  color: var(--sq-text);
+  font-family: var(--sq-font);
+}
+
+.star-quest input,
+.star-quest select {
+  background: var(--sq-panel);
+  color: var(--sq-text);
+  border: 1px solid var(--sq-line);
+  border-radius: 4px;
+}
+
+.star-quest button {
+  background: var(--sq-panel);
+  color: var(--sq-text);
+  border: 1px solid var(--sq-line);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.star-quest button:hover { border-color: var(--sq-accent); color: var(--sq-accent); }
+
+/* --- Header --- */
+.star-quest .sq-header { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.star-quest .sq-portrait { width: 64px; height: 64px; border-radius: 6px; border: 1px solid var(--sq-line); object-fit: cover; }
+.star-quest .sq-item-img { width: 48px; height: 48px; }
+.star-quest .sq-identity { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.star-quest .sq-name { font-size: 1.2rem; font-weight: 700; }
+.star-quest .sq-subline { display: flex; gap: 6px; }
+.star-quest .sq-levelrow { display: flex; gap: 6px; font-size: 0.8rem; }
+.star-quest .sq-levelrow input { width: 56px; }
+
+/* --- Stat grid (large, tappable) --- */
+.star-quest .sq-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 6px; margin-bottom: 8px;
+}
+.star-quest .sq-stat {
+  background: var(--sq-panel); border: 1px solid var(--sq-line); border-radius: 6px;
+  padding: 8px 4px; text-align: center; cursor: pointer; transition: border-color .1s;
+}
+.star-quest .sq-stat[data-action]:hover { border-color: var(--sq-accent); }
+.star-quest .sq-stat-label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: .05em; color: #8a93a3; }
+.star-quest .sq-stat-value { display: block; font-size: 1.6rem; font-weight: 700; color: var(--sq-accent); }
+.star-quest .sq-tough .sq-stat-value { color: var(--sq-text); }
+
+/* --- Vitals --- */
+.star-quest .sq-vitals { display: flex; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.star-quest .sq-wounds, .star-quest .sq-power { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.star-quest .sq-wounds input, .star-quest .sq-power input { width: 48px; text-align: center; }
+.star-quest .sq-of { color: #8a93a3; }
+.star-quest .sq-down { color: var(--sq-warn); font-weight: 700; margin-left: 6px; }
+.star-quest .sq-power-btns { display: flex; gap: 4px; }
+.star-quest .sq-power-token { font-size: 0.8rem; color: var(--sq-accent); }
+
+/* --- Conditions --- */
+.star-quest .sq-conditions { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.star-quest .sq-cond { font-size: 0.75rem; opacity: 0.55; }
+.star-quest .sq-cond.active { opacity: 1; border-color: var(--sq-accent); color: var(--sq-accent); }
+
+/* --- Blocks --- */
+.star-quest .sq-block { margin-bottom: 10px; }
+.star-quest .sq-block h3 {
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: .06em;
+  border-bottom: 1px solid var(--sq-line); padding-bottom: 2px; margin: 0 0 4px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.star-quest .sq-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.star-quest .sq-table th { text-align: left; color: #8a93a3; font-weight: 500; }
+.star-quest .sq-table td, .star-quest .sq-table th { padding: 2px 4px; border-bottom: 1px solid var(--sq-line); }
+.star-quest .sq-rowbtns { display: flex; gap: 2px; white-space: nowrap; }
+.star-quest .sq-rowbtns button { padding: 1px 5px; }
+
+.star-quest .sq-skill, .star-quest .sq-spell, .star-quest .sq-consumable,
+.star-quest .sq-injury, .star-quest .sq-rule {
+  display: flex; align-items: center; gap: 6px; padding: 3px 0;
+  border-bottom: 1px solid var(--sq-line); font-size: 0.85rem;
+}
+.star-quest .sq-skill { display: block; }
+.star-quest .sq-skill summary { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.star-quest .sq-skill-name { flex: 1; }
+.star-quest .sq-skill-stat { color: #8a93a3; font-size: 0.75rem; }
+.star-quest .sq-skill-desc { padding: 4px 0 4px 12px; color: #b7c0cf; }
+.star-quest .sq-spell-name, .star-quest .sq-consumable span:first-child { flex: 1; }
+.star-quest .sq-spell-cv { color: var(--sq-accent); }
+.star-quest .sq-uses { color: #8a93a3; }
+
+/* --- Item sheet --- */
+.star-quest .sq-item-fields { display: flex; flex-direction: column; gap: 8px; }
+.star-quest .sq-field { display: flex; align-items: center; gap: 6px; }
+.star-quest .sq-field > span { flex: 0 0 130px; font-size: 0.8rem; color: #8a93a3; }
+.star-quest .sq-field input, .star-quest .sq-field select { flex: 1; }
+.star-quest .sq-rich { flex-direction: column; align-items: stretch; }
+.star-quest .sq-prose { min-height: 80px; border: 1px solid var(--sq-line); border-radius: 4px; padding: 4px; }
+
+/* --- Objective --- */
+.star-quest .sq-obj-body { display: flex; flex-direction: column; gap: 10px; }
+.star-quest .sq-progress { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.star-quest .sq-progress-value { font-size: 1.3rem; font-weight: 700; }
+.star-quest .sq-complete { text-align: center; padding: 4px; border-radius: 4px; background: var(--sq-panel); }
+.star-quest .sq-complete.done { color: var(--sq-good); border: 1px solid var(--sq-good); }
+
+/* --- Panels (campaign / AI) --- */
+.star-quest.sq-panel .sq-panel-header { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.star-quest.sq-panel .sq-panel-header img { width: 48px; height: 48px; border-radius: 6px; }
+.star-quest.sq-panel .sq-panel-sub { font-size: 0.8rem; color: #8a93a3; }
+.star-quest.sq-panel .sq-panel-section { margin-bottom: 10px; }
+.star-quest.sq-panel .sq-panel-section h4 { margin: 0 0 4px; font-size: 0.8rem; text-transform: uppercase; color: #8a93a3; }
+.star-quest.sq-panel .sq-btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.star-quest.sq-panel .sq-empty { font-size: 0.85rem; color: #8a93a3; font-style: italic; }
+.star-quest .sq-ai-intro { font-size: 0.8rem; color: #8a93a3; font-style: italic; }
+.star-quest .sq-ai-steps { font-size: 0.85rem; padding-left: 18px; }
+.star-quest .sq-ai-action.chosen { border-color: var(--sq-accent); color: var(--sq-accent); }
+.star-quest .sq-ai-result { margin-top: 8px; font-size: 0.9rem; }
+.star-quest .sq-ai-reset { margin-top: 8px; }
+
+/* --- Chat roll card --- */
+.sq-roll-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
+.sq-roll-header { font-weight: 700; }
+.sq-target { color: #4fd1c5; }
+.sq-dice { display: flex; gap: 4px; list-style: none; padding: 4px 0; margin: 0; flex-wrap: wrap; }
+.sq-die { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  border-radius: 4px; font-weight: 700; border: 1px solid #2c3644; }
+.sq-die.success { background: rgba(152,195,121,0.2); color: #98c379; border-color: #98c379; }
+.sq-die.failure { background: rgba(224,108,117,0.15); color: #e06c75; border-color: #50343a; }
+.sq-roll-footer { font-size: 0.85rem; color: #8a93a3; }

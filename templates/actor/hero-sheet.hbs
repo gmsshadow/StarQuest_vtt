@@ -1,0 +1,142 @@
+<form class="sq-hero {{#unless editable}}locked{{/unless}}">
+
+  <header class="sq-header">
+    <img class="sq-portrait" src="{{actor.img}}" data-edit="img" alt="portrait"/>
+    <div class="sq-identity">
+      <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="sq-name"/>
+      <div class="sq-subline">
+        <input type="text" name="system.faction" value="{{system.faction}}" placeholder="Faction"/>
+        <input type="text" name="system.class" value="{{system.class}}" placeholder="Class"/>
+      </div>
+      <div class="sq-levelrow">
+        <label>Lvl <input type="number" name="system.level" value="{{system.level}}" min="1"/></label>
+        <label>XP <input type="number" name="system.xp" value="{{system.xp}}" min="0"/></label>
+        <label>Credits <input type="number" name="system.credits" value="{{system.credits}}" min="0"/></label>
+      </div>
+    </div>
+  </header>
+
+  <section class="sq-stats">
+    {{#each (array "quality" "defense" "strength" "dexterity" "willpower")}}
+    <div class="sq-stat" data-action="rollStat" data-stat="{{this}}">
+      <span class="sq-stat-label">{{this}}</span>
+      <span class="sq-stat-value">{{lookup ../system this}}+</span>
+    </div>
+    {{/each}}
+    <div class="sq-stat sq-tough">
+      <span class="sq-stat-label">Toughness</span>
+      <span class="sq-stat-value">{{system.toughness}}</span>
+    </div>
+  </section>
+
+  <section class="sq-vitals">
+    <div class="sq-wounds">
+      <label>Wounds</label>
+      <input type="number" name="system.wounds" value="{{system.wounds}}" min="0"/>
+      <span class="sq-of">/ {{system.toughness}}</span>
+      {{#if system.isDown}}<span class="sq-down">DOWN</span>{{/if}}
+    </div>
+    <div class="sq-power">
+      <label>Power</label>
+      <input type="number" name="system.power.value" value="{{system.power.value}}" min="0"/>
+      <span class="sq-of">/</span>
+      <input type="number" name="system.power.max" value="{{system.power.max}}" min="0"/>
+      <div class="sq-power-btns">
+        <button type="button" data-action="spendPower">−</button>
+        <button type="button" data-action="restorePower">+</button>
+        <button type="button" data-action="restAction">Rest</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sq-conditions">
+    {{#each conditions}}
+    <button type="button" class="sq-cond {{#if active}}active{{/if}}"
+            data-action="toggleCondition" data-condition="{{id}}">
+      {{localize label}}
+    </button>
+    {{/each}}
+  </section>
+
+  <section class="sq-block">
+    <h3>Weapons</h3>
+    <table class="sq-table">
+      <thead><tr><th>Name</th><th>Rng</th><th>A</th><th>AP</th><th>Special</th><th></th></tr></thead>
+      <tbody>
+        {{#each weapons}}
+        <tr data-item-id="{{id}}">
+          <td>{{name}}</td>
+          <td>{{#if system.isMelee}}Melee{{else}}{{system.range}}{{/if}}</td>
+          <td>{{system.attacks}}</td>
+          <td>{{system.ap}}</td>
+          <td>{{system.special}}</td>
+          <td class="sq-rowbtns">
+            <button type="button" data-action="rollWeapon" title="Roll">🎲</button>
+            <button type="button" data-action="editItem" title="Edit">✎</button>
+            <button type="button" data-action="deleteItem" title="Delete">🗑</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sq-block">
+    <h3>Skills</h3>
+    {{#each skills}}
+    <details class="sq-skill" data-item-id="{{id}}">
+      <summary>
+        <span class="sq-skill-name">{{name}}</span>
+        <span class="sq-skill-stat">[{{system.stat}}]</span>
+        <button type="button" data-action="rollSkill">Roll</button>
+        <button type="button" data-action="editItem">✎</button>
+        <button type="button" data-action="deleteItem">🗑</button>
+      </summary>
+      <div class="sq-skill-desc">{{{system.description}}}</div>
+    </details>
+    {{/each}}
+  </section>
+
+  {{#if system.isCaster}}
+  <section class="sq-block">
+    <h3>Spells <span class="sq-power-token">⚡ {{system.power.value}}/{{system.power.max}}</span></h3>
+    {{#each spells}}
+    <div class="sq-spell" data-item-id="{{id}}">
+      <span class="sq-spell-name">{{name}}</span>
+      <span class="sq-spell-cv">{{system.castingValue}}+</span>
+      <span class="sq-spell-cost">⚡{{system.cost}}</span>
+      <button type="button" data-action="castSpell">Cast</button>
+      <button type="button" data-action="editItem">✎</button>
+      <button type="button" data-action="deleteItem">🗑</button>
+    </div>
+    {{/each}}
+  </section>
+  {{/if}}
+
+  <section class="sq-block">
+    <h3>Consumables</h3>
+    {{#each consumables}}
+    <div class="sq-consumable" data-item-id="{{id}}">
+      <span>{{name}}</span>
+      <span class="sq-uses">{{system.uses.value}}/{{system.uses.max}}</span>
+      <button type="button" data-action="useConsumable">Use</button>
+      <button type="button" data-action="editItem">✎</button>
+      <button type="button" data-action="deleteItem">🗑</button>
+    </div>
+    {{/each}}
+  </section>
+
+  {{#if injuries.length}}
+  <section class="sq-block">
+    <h3>Injuries</h3>
+    {{#each injuries}}
+    <div class="sq-injury" data-item-id="{{id}}">
+      <span>{{name}}</span>
+      <button type="button" data-action="editItem">✎</button>
+      <button type="button" data-action="deleteItem">🗑</button>
+    </div>
+    {{/each}}
+  </section>
+  {{/if}}
+
+</form>

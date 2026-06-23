@@ -1,0 +1,25 @@
+<div class="sq-ai-body">
+  <p class="sq-ai-intro">Guidance only — resolve movement on the tabletop.</p>
+
+  <ol class="sq-ai-steps">
+    {{#each steps}}
+    <li>{{localize label}}</li>
+    {{/each}}
+  </ol>
+
+  <h4>Choose Action</h4>
+  <div class="sq-btn-row">
+    {{#each actions}}
+    <button type="button" class="sq-ai-action {{#if (eq ../chosen key)}}chosen{{/if}}"
+            data-action="pickAction" data-choice="{{key}}">
+      {{localize label}}
+    </button>
+    {{/each}}
+  </div>
+
+  {{#if chosen}}
+  <div class="sq-ai-result">Selected: <strong>{{chosen}}</strong></div>
+  {{/if}}
+
+  <button type="button" class="sq-ai-reset" data-action="reset">Reset</button>
+</div>

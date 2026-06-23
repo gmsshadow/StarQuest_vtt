@@ -1,0 +1,69 @@
+<form class="sq-item sq-item-{{type}} {{#unless editable}}locked{{/unless}}">
+  <header class="sq-header">
+    <img class="sq-portrait sq-item-img" src="{{item.img}}" data-edit="img" alt="icon"/>
+    <input type="text" name="name" value="{{item.name}}" placeholder="Name" class="sq-name"/>
+  </header>
+
+  <section class="sq-item-fields">
+
+    {{#if (eq type "weapon")}}
+      <label class="sq-field"><span>Range (0 = melee)</span>
+        <input type="number" name="system.range" value="{{system.range}}" min="0"/></label>
+      <label class="sq-field"><span>Attacks</span>
+        <input type="number" name="system.attacks" value="{{system.attacks}}" min="1"/></label>
+      <label class="sq-field"><span>AP</span>
+        <input type="number" name="system.ap" value="{{system.ap}}" min="0"/></label>
+      <label class="sq-field"><span>Special</span>
+        <input type="text" name="system.special" value="{{system.special}}"/></label>
+    {{/if}}
+
+    {{#if (eq type "skill")}}
+      <label class="sq-field"><span>Associated Stat</span>
+        <select name="system.stat">
+          {{#each (array "quality" "defense" "strength" "dexterity" "willpower")}}
+          <option value="{{this}}" {{#if (eq ../system.stat this)}}selected{{/if}}>{{this}}</option>
+          {{/each}}
+        </select></label>
+      <label class="sq-field"><span>Roll Target (0 = use stat)</span>
+        <input type="number" name="system.rollTarget" value="{{system.rollTarget}}" min="0"/></label>
+      <label class="sq-field"><span>Cost</span>
+        <input type="number" name="system.cost" value="{{system.cost}}" min="0"/></label>
+    {{/if}}
+
+    {{#if (eq type "spell")}}
+      <label class="sq-field"><span>Casting Value</span>
+        <input type="number" name="system.castingValue" value="{{system.castingValue}}" min="2" max="6"/></label>
+      <label class="sq-field"><span>Power Cost</span>
+        <input type="number" name="system.cost" value="{{system.cost}}" min="0"/></label>
+      <label class="sq-field"><span>Range</span>
+        <input type="number" name="system.range" value="{{system.range}}" min="0"/></label>
+      <label class="sq-field sq-rich"><span>Effects</span>
+        <div class="sq-prose">{{{system.effects}}}</div></label>
+    {{/if}}
+
+    {{#if (eq type "consumable")}}
+      <label class="sq-field"><span>Uses</span>
+        <input type="number" name="system.uses.value" value="{{system.uses.value}}" min="0"/>
+        <span>/</span>
+        <input type="number" name="system.uses.max" value="{{system.uses.max}}" min="0"/></label>
+      <label class="sq-field sq-rich"><span>Effect</span>
+        <div class="sq-prose">{{{system.effect}}}</div></label>
+    {{/if}}
+
+    {{#if (eq type "injury")}}
+      <label class="sq-field sq-rich"><span>Mechanical Effects</span>
+        <div class="sq-prose">{{{system.mechanicalEffects}}}</div></label>
+    {{/if}}
+
+    {{#if (eq type "specialRule")}}
+      <label class="sq-field sq-rich"><span>Description</span>
+        <div class="sq-prose">{{{system.description}}}</div></label>
+    {{/if}}
+
+    {{#unless (eq type "injury")}}{{#unless (eq type "specialRule")}}{{#unless (eq type "spell")}}{{#unless (eq type "consumable")}}
+      <label class="sq-field sq-rich"><span>Description</span>
+        <div class="sq-prose">{{{system.description}}}</div></label>
+    {{/unless}}{{/unless}}{{/unless}}{{/unless}}
+
+  </section>
+</form>

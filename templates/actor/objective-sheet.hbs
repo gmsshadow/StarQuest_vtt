@@ -1,0 +1,33 @@
+<form class="sq-objective {{#unless editable}}locked{{/unless}}">
+  <header class="sq-header">
+    <input type="text" name="name" value="{{actor.name}}" placeholder="Objective" class="sq-name"/>
+  </header>
+
+  <section class="sq-obj-body">
+    <label class="sq-field">
+      <span>Type</span>
+      <select name="system.objectiveType">
+        <option value="primary" {{#if (eq system.objectiveType "primary")}}selected{{/if}}>Primary</option>
+        <option value="secondary" {{#if (eq system.objectiveType "secondary")}}selected{{/if}}>Secondary</option>
+        <option value="bonus" {{#if (eq system.objectiveType "bonus")}}selected{{/if}}>Bonus</option>
+      </select>
+    </label>
+
+    <div class="sq-progress">
+      <button type="button" data-action="removeProgress">−</button>
+      <span class="sq-progress-value">{{system.progress}} / {{system.target}}</span>
+      <button type="button" data-action="addProgress">+</button>
+    </div>
+
+    <label class="sq-field">
+      <span>Target</span>
+      <input type="number" name="system.target" value="{{system.target}}" min="1"/>
+    </label>
+
+    <div class="sq-complete {{#if system.completed}}done{{/if}}">
+      {{#if system.completed}}✓ Completed{{else}}In progress{{/if}}
+    </div>
+
+    <div class="sq-notes">{{{system.notes}}}</div>
+  </section>
+</form>
