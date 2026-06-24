@@ -14,6 +14,10 @@ export class HeroSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     classes: ["star-quest", "sheet", "actor", "hero"],
     position: { width: 480, height: 720 },
     window: { resizable: true },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false
+    },
     actions: {
       rollStat: HeroSheet.#onRollStat,
       rollWeapon: HeroSheet.#onRollWeapon,

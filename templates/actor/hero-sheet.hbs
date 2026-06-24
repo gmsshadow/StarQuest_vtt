@@ -1,7 +1,7 @@
-<form class="sq-hero {{#unless editable}}locked{{/unless}}">
+<div class="sq-hero {{#unless editable}}locked{{/unless}}">
 
   <header class="sq-header">
-    <img class="sq-portrait" src="{{actor.img}}" data-edit="img" alt="portrait"/>
+    <img class="sq-portrait" src="{{actor.img}}" data-action="editImage" data-edit="img" alt="portrait"/>
     <div class="sq-identity">
       <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="sq-name"/>
       <div class="sq-subline">
@@ -139,4 +139,4 @@
   </section>
   {{/if}}
 
-</form>
+</div>

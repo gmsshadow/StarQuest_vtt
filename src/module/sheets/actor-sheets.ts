@@ -9,6 +9,10 @@ export class EnemySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     classes: ["star-quest", "sheet", "actor", "enemy"],
     position: { width: 420, height: 560 },
     window: { resizable: true },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false
+    },
     actions: {
       rollStat: EnemySheet.#onRollStat,
       editItem: EnemySheet.#onEditItem,
@@ -54,6 +58,10 @@ export class ObjectiveSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     classes: ["star-quest", "sheet", "actor", "objective"],
     position: { width: 380, height: 420 },
     window: { resizable: true },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false
+    },
     actions: {
       addProgress: ObjectiveSheet.#onAddProgress,
       removeProgress: ObjectiveSheet.#onRemoveProgress

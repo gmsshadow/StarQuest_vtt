@@ -1,6 +1,6 @@
-<form class="sq-item sq-item-{{type}} {{#unless editable}}locked{{/unless}}">
+<div class="sq-item sq-item-{{type}} {{#unless editable}}locked{{/unless}}">
   <header class="sq-header">
-    <img class="sq-portrait sq-item-img" src="{{item.img}}" data-edit="img" alt="icon"/>
+    <img class="sq-portrait sq-item-img" src="{{item.img}}" data-action="editImage" data-edit="img" alt="icon"/>
     <input type="text" name="name" value="{{item.name}}" placeholder="Name" class="sq-name"/>
   </header>
 
@@ -66,4 +66,4 @@
     {{/unless}}{{/unless}}{{/unless}}{{/unless}}
 
   </section>
-</form>
+</div>

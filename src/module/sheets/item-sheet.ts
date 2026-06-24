@@ -9,7 +9,11 @@ export class StarQuestItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) 
   static DEFAULT_OPTIONS = {
     classes: ["star-quest", "sheet", "item"],
     position: { width: 460, height: 480 },
-    window: { resizable: true }
+    window: { resizable: true },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false
+    }
   };
 
   static PARTS = {
