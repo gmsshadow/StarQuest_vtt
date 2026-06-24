@@ -136,23 +136,19 @@ export class HeroSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Adjust current Power. If Power would drop below zero, the overflow is
-   * converted point-for-point into wounds (per the Power Management rules).
+   * Adjust current Power, clamped between 0 and the hero's maximum.
+   * Power cannot be spent below 0 — if a spend would do so, it is blocked.
    */
   async #adjustPower(delta: number) {
     const actor = this.document as any;
     const cur = actor.system.power.value;
     const max = actor.system.power.max;
-    let next = cur + delta;
-    const updates: Record<string, number> = {};
+    const next = cur + delta;
 
     if (next < 0) {
-      const overflow = -next;
-      updates["system.wounds"] = Math.min(actor.system.toughness, actor.system.wounds + overflow);
-      next = 0;
-      ui.notifications?.warn(`Power exhausted — ${overflow} wound(s) taken.`);
+      ui.notifications?.warn("Not enough Power.");
+      return;
     }
-    updates["system.power.value"] = Math.min(max, next);
-    await actor.update(updates);
+    await actor.update({ "system.power.value": Math.min(max, next) });
   }
 }

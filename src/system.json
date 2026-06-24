@@ -21,7 +21,32 @@
       "path": "lang/en.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "heroes",
+      "label": "Star Quest Heroes",
+      "path": "packs/heroes",
+      "type": "Actor",
+      "system": "star-quest",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "enemies",
+      "label": "Star Quest Enemies",
+      "path": "packs/enemies",
+      "type": "Actor",
+      "system": "star-quest",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "rules",
+      "label": "Star Quest Rules & Items",
+      "path": "packs/rules",
+      "type": "Item",
+      "system": "star-quest",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    }
+  ],
   "documentTypes": {
     "Actor": {
       "hero": {},

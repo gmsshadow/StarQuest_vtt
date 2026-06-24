@@ -1,0 +1,15 @@
+{
+  "_id": "vgDgDD0kTTFihtFE",
+  "name": "Deadly(X)",
+  "type": "specialRule",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "description": "<p>Deadly(X): Assign each wound to one model and multiply it by X. Deadly hits are resolved first and do not carry over to other models if the original target is killed.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!vgDgDD0kTTFihtFE"
+}
