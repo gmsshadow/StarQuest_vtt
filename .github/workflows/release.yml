@@ -102,3 +102,31 @@ jobs:
             package/star-quest.zip \
             package/star-quest/system.json \
             --clobber
+
+      # Sync the committed src/system.json version back to the default branch so
+      # the repo reflects the released version. Only the `version` field is
+      # updated — the committed download URL stays pointed at releases/latest.
+      # Runs against main (not the detached tag) and skips if nothing changed.
+      - name: Commit version bump to main
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -e
+          git fetch origin main
+          git checkout main
+          node -e '
+            const fs = require("fs");
+            const path = "src/system.json";
+            const m = JSON.parse(fs.readFileSync(path, "utf8"));
+            m.version = process.env.VERSION;
+            fs.writeFileSync(path, JSON.stringify(m, null, 2) + "\n");
+          '
+          if git diff --quiet -- src/system.json; then
+            echo "system.json version already at $VERSION — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/system.json
+          git commit -m "chore: bump system.json to v${VERSION} [skip ci]"
+          git push origin main
