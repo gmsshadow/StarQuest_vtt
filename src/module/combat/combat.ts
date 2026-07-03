@@ -164,9 +164,8 @@ export class StarQuestCombat extends foundry.documents.Combat {
     const next = this.#sideExhausted(other) ? current : other;
     await this.setFlag("star-quest", "side", next);
 
-    // 4. Advance Foundry's own turn pointer for tracker highlighting, then
-    //    open the picker for the chosen side (GM only).
-    await this.update({ turn: 0 });
+    // 4. Open the picker for the chosen side (GM only). The picker sets the
+    //    turn index when a unit is chosen, which drives the active-token marker.
     this.openPicker(next);
     return this;
   }

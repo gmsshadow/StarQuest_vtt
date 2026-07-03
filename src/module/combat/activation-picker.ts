@@ -87,6 +87,15 @@ export class ActivationPicker extends HandlebarsApplicationMixin(ApplicationV2) 
   /** Record the pending pick on the combat and control that unit's token. */
   async #selectToken(id: string) {
     await this.combat.setFlag("star-quest", "pendingPick", id);
+
+    // Point Foundry's own turn pointer at the picked combatant so the active-
+    // token marker (the spinning ring) tracks the chosen unit rather than
+    // whichever combatant happens to sit at the top of the order.
+    const turnIndex = this.combat.turns?.findIndex((t: any) => t.id === id) ?? -1;
+    if (turnIndex >= 0 && this.combat.turn !== turnIndex) {
+      await this.combat.update({ turn: turnIndex });
+    }
+
     const c = this.combat.combatants.get(id);
     const token = c?.token?.object;
     if (token) {
