@@ -1,0 +1,15 @@
+{
+  "_id": "PoZuZ8kINSOw6Hhz",
+  "name": "Rending",
+  "type": "specialRule",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "description": "<p>Rending: Ignores Regeneration, and on unmodified 6s to hit, those hits get AP(+4).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!PoZuZ8kINSOw6Hhz"
+}

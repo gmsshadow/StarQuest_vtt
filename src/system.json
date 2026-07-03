@@ -1,7 +1,7 @@
 {
   "id": "star-quest",
   "title": "Grimdark Future: Star Quest",
-  "description": "A Foundry VTT game system for One Page Rules' Grimdark Future: Star Quest — a solo/co-op hero-based miniature skirmish adventure game.",
+  "description": "A Foundry VTT game system for One Page Rules' Grimdark Future: Star Quest \u2014 a solo/co-op hero-based miniature skirmish adventure game.",
   "version": "0.1.0",
   "compatibility": {
     "minimum": "14",
@@ -12,8 +12,12 @@
       "name": "GMsShadow"
     }
   ],
-  "esmodules": ["star-quest.mjs"],
-  "styles": ["star-quest.css"],
+  "esmodules": [
+    "star-quest.mjs"
+  ],
+  "styles": [
+    "star-quest.css"
+  ],
   "languages": [
     {
       "lang": "en",
@@ -28,7 +32,10 @@
       "path": "packs/heroes",
       "type": "Actor",
       "system": "star-quest",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "enemies",
@@ -36,7 +43,10 @@
       "path": "packs/enemies",
       "type": "Actor",
       "system": "star-quest",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "rules",
@@ -44,7 +54,10 @@
       "path": "packs/rules",
       "type": "Item",
       "system": "star-quest",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "documentTypes": {

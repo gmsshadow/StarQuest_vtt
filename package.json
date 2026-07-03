@@ -13,9 +13,5 @@
     "@foundryvtt/foundryvtt-cli": "^3.0.3",
     "typescript": "^5.5.4",
     "vite": "^5.4.2"
-  },
-  "allowScripts": {
-    "classic-level@1.4.1": true,
-    "esbuild@0.21.5": true
   }
 }

@@ -1,0 +1,15 @@
+{
+  "_id": "WixCXoEC6eph4paT",
+  "name": "Fearless",
+  "type": "specialRule",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "description": "<p>Fearless: When a unit where all models have this rule fails a morale test, roll one die. On a 4+ it counts as passed instead.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!WixCXoEC6eph4paT"
+}

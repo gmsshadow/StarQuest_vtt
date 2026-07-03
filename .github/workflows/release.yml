@@ -1,0 +1,104 @@
+name: Release
+
+# Runs when you publish a GitHub Release. The release tag (e.g. "v0.2.0" or
+# "0.2.0") becomes the system version. The workflow rewrites system.json to
+# match, builds the JS bundle, compiles the compendium packs, zips everything
+# into the install package, and attaches both the zip and a standalone
+# system.json to the release.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Derive the version from the release tag, stripping any leading "v".
+      - name: Determine version
+        id: version
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Building version $VERSION from tag $TAG"
+
+      # Rewrite system.json: version = tag, download = this release's zip,
+      # manifest = latest (so Foundry's update check always finds the newest).
+      - name: Patch system.json
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          node -e '
+            const fs = require("fs");
+            const path = "src/system.json";
+            const m = JSON.parse(fs.readFileSync(path, "utf8"));
+            const repo = process.env.REPO;                 // e.g. gmsshadow/star-quest
+            const tag = process.env.TAG;
+            m.version = process.env.VERSION;
+            m.url = `https://github.com/${repo}`;
+            m.manifest = `https://github.com/${repo}/releases/latest/download/system.json`;
+            m.download = `https://github.com/${repo}/releases/download/${tag}/star-quest.zip`;
+            fs.writeFileSync(path, JSON.stringify(m, null, 2));
+            console.log("Patched system.json:", { version: m.version, download: m.download });
+          '
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Compile compendium packs
+        run: |
+          node tools/build-packs.mjs
+          node tools/compile-packs.mjs
+
+      # Assemble the install layout: everything Foundry needs, nothing else.
+      - name: Assemble package
+        run: |
+          set -e
+          OUT="package/star-quest"
+          rm -rf package
+          mkdir -p "$OUT"
+          cp src/system.json "$OUT/system.json"
+          cp dist/star-quest.mjs "$OUT/star-quest.mjs"
+          cp dist/star-quest.mjs.map "$OUT/star-quest.mjs.map"
+          cp src/star-quest.css "$OUT/star-quest.css"
+          cp -r templates "$OUT/templates"
+          cp -r lang "$OUT/lang"
+          mkdir -p "$OUT/packs"
+          for p in heroes enemies rules; do
+            cp -r "packs/$p" "$OUT/packs/$p"
+            rm -f "$OUT/packs/$p/LOCK"
+          done
+
+      - name: Zip package
+        run: |
+          cd package
+          zip -rq star-quest.zip star-quest
+
+      # Attach the install zip AND a standalone system.json (needed so the
+      # manifest URL releases/latest/download/system.json resolves).
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" \
+            package/star-quest.zip \
+            package/star-quest/system.json \
+            --clobber
