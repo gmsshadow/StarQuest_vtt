@@ -29,6 +29,23 @@ function isActivated(c: any): boolean {
 }
 
 /**
+ * True if an actor is out of the fight: wounds have reached Toughness.
+ * Heroes are unconscious, enemies are defeated — both are removed from the
+ * activation pool.
+ */
+export function isActorDown(actor: any): boolean {
+  if (!actor?.system) return false;
+  const wounds = actor.system.wounds ?? 0;
+  const tough = actor.system.toughness ?? 1;
+  return wounds >= tough;
+}
+
+/** True if this combatant's actor is down/defeated (or Foundry-flagged defeated). */
+export function isCombatantDown(c: any): boolean {
+  return c?.isDefeated === true || c?.defeated === true || isActorDown(c?.actor);
+}
+
+/**
  * Compute the shortest distance (in grid units) from an enemy token to any
  * hero token on the same scene. Returns Infinity if it can't be determined.
  */
@@ -74,12 +91,15 @@ function rankMap(combat: any): Map<string, number> {
     return { heroes, enemies };
   };
 
-  // Pending (un-activated) first, then activated — each interleaved internally.
-  const pending = all.filter((x: any) => !isActivated(x));
-  const done = all.filter((x: any) => isActivated(x));
+  // Down/defeated units sink below everything. Among the rest: pending
+  // (un-activated) first, then activated — each interleaved internally.
+  const live = all.filter((x: any) => !isCombatantDown(x));
+  const downed = all.filter((x: any) => isCombatantDown(x));
+  const pending = live.filter((x: any) => !isActivated(x));
+  const done = live.filter((x: any) => isActivated(x));
 
   let base = 0;
-  for (const group of [pending, done]) {
+  for (const group of [pending, done, downed]) {
     const { heroes, enemies } = split(group);
     heroes.forEach((c, i) => map.set(c.id, base + i * 2));
     enemies.forEach((c, i) => map.set(c.id, base + i * 2 + 1));
@@ -122,19 +142,21 @@ export class StarQuestCombat extends foundry.documents.Combat {
     return this.getFlag("star-quest", "side") === "enemy" ? "enemy" : "hero";
   }
 
-  /** True when no un-activated units remain on the given side. */
+  /** True when no un-activated, still-standing units remain on the given side. */
   #sideExhausted(side: "hero" | "enemy"): boolean {
     return !this.combatants.some((c: any) => {
       const isHero = c.actor?.type === "hero";
       const activated = c.getFlag?.("star-quest", "activated") === true;
-      return !activated && (side === "hero" ? isHero : !isHero);
+      const down = isCombatantDown(c);
+      return !activated && !down && (side === "hero" ? isHero : !isHero);
     });
   }
 
-  /** All units activated → round is complete. */
+  /** Round complete when every still-standing unit has activated. */
   #allActivated(): boolean {
     return this.combatants.every(
-      (c: any) => c.getFlag?.("star-quest", "activated") === true
+      (c: any) =>
+        isCombatantDown(c) || c.getFlag?.("star-quest", "activated") === true
     );
   }
 

@@ -1,4 +1,5 @@
 import { ActionPicker } from "./action-picker";
+import { isCombatantDown } from "./combat";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -36,12 +37,13 @@ export class ActivationPicker extends HandlebarsApplicationMixin(ApplicationV2) 
     body: { template: "systems/star-quest/templates/apps/activation-picker.hbs" }
   };
 
-  /** Un-activated combatants for the current side, ordered for display. */
+  /** Un-activated, still-standing combatants for the current side. */
   get choices(): any[] {
     const list = this.combat.combatants.filter((c: any) => {
       const isHero = c.actor?.type === "hero";
       const activated = c.getFlag?.("star-quest", "activated") === true;
-      return !activated && (this.side === "hero" ? isHero : !isHero);
+      const down = isCombatantDown(c);
+      return !activated && !down && (this.side === "hero" ? isHero : !isHero);
     });
 
     if (this.side === "enemy") {

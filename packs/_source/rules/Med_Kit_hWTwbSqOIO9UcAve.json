@@ -1,0 +1,19 @@
+{
+  "_id": "hWTwbSqOIO9UcAve",
+  "name": "Med Kit",
+  "type": "consumable",
+  "img": "icons/svg/regen.svg",
+  "system": {
+    "uses": {
+      "value": 1,
+      "max": 1
+    },
+    "effect": "<p>Med Kit: Use with a skill action, then remove. The hero restores 3 wounds. May instead be applied to one other hero within 3\".</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!hWTwbSqOIO9UcAve"
+}

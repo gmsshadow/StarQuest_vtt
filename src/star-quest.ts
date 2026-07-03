@@ -13,7 +13,7 @@ import { EnemySheet, ObjectiveSheet } from "./module/sheets/actor-sheets";
 import { StarQuestItemSheet } from "./module/sheets/item-sheet";
 import { CampaignTracker } from "./module/apps/campaign-tracker";
 import { AIHelper } from "./module/apps/ai-helper";
-import { StarQuestCombat } from "./module/combat/combat";
+import { StarQuestCombat, isActorDown } from "./module/combat/combat";
 import { StarQuestCombatant } from "./module/combat/combatant";
 import { SQ, registerConditions } from "./module/helpers/config";
 
@@ -128,6 +128,29 @@ Hooks.on("getSceneControlButtons", (controls: any) => {
 // Augment the Combat Tracker: mark activated combatants, tag heroes vs enemies,
 // and show which side is currently up. We enhance the rendered DOM rather than
 // replacing the tracker application, which is more robust across versions.
+// When an actor's wounds change, sync every combatant tied to that actor so it
+// is flagged defeated (greyed + skull in the tracker, removed from activation)
+// once wounds reach Toughness — and un-flagged if healed back below it.
+Hooks.on("updateActor", async (actor: any, changes: any) => {
+  if (!game.user?.isGM) return;
+  const woundsTouched = foundry.utils.hasProperty(changes, "system.wounds")
+    || foundry.utils.hasProperty(changes, "system.toughness");
+  if (!woundsTouched) return;
+
+  const down = isActorDown(actor);
+  for (const combat of game.combats ?? []) {
+    const linked = combat.combatants.filter((c: any) => {
+      // Match the base actor (linked tokens) or the token's own actor (unlinked).
+      return c.actorId === actor.id || c.actor === actor || c.token?.actor === actor;
+    });
+    for (const c of linked) {
+      if (c.defeated !== down) {
+        await c.update({ defeated: down });
+      }
+    }
+  }
+});
+
 Hooks.on("renderCombatTracker", (_app: any, html: any, data: any) => {
   const combat = data?.combat ?? game.combat;
   if (!combat) return;
