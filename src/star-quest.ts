@@ -13,6 +13,8 @@ import { EnemySheet, ObjectiveSheet } from "./module/sheets/actor-sheets";
 import { StarQuestItemSheet } from "./module/sheets/item-sheet";
 import { CampaignTracker } from "./module/apps/campaign-tracker";
 import { AIHelper } from "./module/apps/ai-helper";
+import { StarQuestCombat } from "./module/combat/combat";
+import { StarQuestCombatant } from "./module/combat/combatant";
 import { SQ, registerConditions } from "./module/helpers/config";
 
 const SYSTEM_ID = "star-quest";
@@ -49,6 +51,12 @@ Hooks.once("init", () => {
     injury: InjuryData,
     specialRule: SpecialRuleData
   });
+
+  // --- Combat: alternating activation, no initiative ------------------------
+  CONFIG.Combat.documentClass = StarQuestCombat;
+  CONFIG.Combatant.documentClass = StarQuestCombatant;
+  // No initiative formula — Star Quest uses computed activation order.
+  CONFIG.Combat.initiative = { formula: "0", decimals: 0 };
 
   // --- Sheets (v14 registration namespace) ---------------------------------
   const actors = foundry.documents.collections.Actors;
@@ -115,6 +123,74 @@ Hooks.on("getSceneControlButtons", (controls: any) => {
     onChange: () => new AIHelper().render(true),
     onClick: () => new AIHelper().render(true)
   });
+});
+
+// Augment the Combat Tracker: mark activated combatants, tag heroes vs enemies,
+// and show which side is currently up. We enhance the rendered DOM rather than
+// replacing the tracker application, which is more robust across versions.
+Hooks.on("renderCombatTracker", (_app: any, html: any, data: any) => {
+  const combat = data?.combat ?? game.combat;
+  if (!combat) return;
+
+  const root: HTMLElement | null =
+    html instanceof HTMLElement ? html : html?.[0] ?? null;
+  if (!root) return;
+
+  for (const el of Array.from(root.querySelectorAll<HTMLElement>("[data-combatant-id]"))) {
+    const id = el.dataset.combatantId!;
+    const c = combat.combatants.get(id);
+    if (!c) continue;
+
+    const hero = c.actor?.type === "hero";
+    el.classList.add(hero ? "sq-side-hero" : "sq-side-enemy");
+    const done = c.getFlag?.("star-quest", "activated") === true;
+    if (done) el.classList.add("sq-activated");
+
+    // Only the GM (or a player owning this combatant) gets an Activate button.
+    const canControl = game.user?.isGM || c.actor?.isOwner;
+    if (!canControl) continue;
+
+    // Avoid double-inserting on re-render.
+    if (el.querySelector(".sq-activate-btn")) continue;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "sq-activate-btn";
+    btn.title = done ? "Mark as not activated" : "Activate this unit";
+    btn.innerHTML = done
+      ? '<i class="fa-solid fa-rotate-left"></i>'
+      : '<i class="fa-solid fa-flag-checkered"></i>';
+    btn.addEventListener("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (done) {
+        // Undo: clear the flag without advancing.
+        await c.setFlag("star-quest", "activated", false);
+      } else {
+        // Mark activated; if this is the current combatant, advance the turn.
+        await c.setFlag("star-quest", "activated", true);
+        if (combat.combatant?.id === c.id) await combat.nextTurn();
+      }
+      ui.combat?.render();
+    });
+
+    // Prefer the row's controls container; fall back to the row itself.
+    const controls =
+      el.querySelector(".combatant-controls") ??
+      el.querySelector(".token-effects") ??
+      el;
+    controls.appendChild(btn);
+  }
+
+  // Banner: whose activation is it?
+  const current = combat.combatant;
+  if (current) {
+    const side = current.actor?.type === "hero" ? "Players" : "AI";
+    const banner = document.createElement("div");
+    banner.className = "sq-turn-banner";
+    banner.textContent = `${side} to activate`;
+    root.querySelector(".combat-tracker")?.prepend(banner);
+  }
 });
 
 Hooks.once("ready", async () => {

@@ -182,10 +182,11 @@ function scene(name, { src, width, height } = {}) {
     backgroundColor: "#111111",
     background: { src, offsetX: 0, offsetY: 0, scaleX: 1, scaleY: 1, rotation: 0, tint: null },
     foreground: null,
-    // grid.type 0 = gridless. size is required by the schema but unused when gridless.
+    // grid.type 0 = gridless. size sets the real-world scale even when gridless:
+    // 40px = 1 inch, so the 1920px map represents 48"x48" (the game's 4'x4' table).
     grid: {
       type: 0,
-      size: 100,
+      size: 40,
       style: "solidLines",
       thickness: 1,
       color: "#000000",

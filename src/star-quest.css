@@ -131,7 +131,44 @@
 .star-quest .sq-ai-result { margin-top: 8px; font-size: 0.9rem; }
 .star-quest .sq-ai-reset { margin-top: 8px; }
 
-/* --- Chat roll card --- */
+/* --- Combat tracker: activation state --- */
+.sq-turn-banner {
+  text-align: center;
+  font-weight: 700;
+  padding: 4px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  background: var(--sq-panel, #1b212b);
+  color: var(--sq-accent, #4fd1c5);
+  border: 1px solid var(--sq-accent-dim, #2c7a75);
+}
+#combat .sq-activated,
+.combat-tracker .sq-activated {
+  opacity: 0.45;
+  filter: grayscale(0.5);
+}
+#combat .sq-side-hero,
+.combat-tracker .sq-side-hero {
+  border-left: 3px solid var(--sq-accent, #4fd1c5);
+}
+#combat .sq-side-enemy,
+.combat-tracker .sq-side-enemy {
+  border-left: 3px solid var(--sq-warn, #e06c75);
+}
+.sq-activate-btn {
+  background: transparent;
+  border: none;
+  color: var(--sq-accent, #4fd1c5);
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 0.9rem;
+}
+.sq-activate-btn:hover {
+  color: #fff;
+}
+.sq-activated .sq-activate-btn {
+  color: #8a93a3;
+}
 .sq-roll-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
 .sq-roll-header { font-weight: 700; }
 .sq-target { color: #4fd1c5; }
