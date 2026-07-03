@@ -1,0 +1,38 @@
+<div class="sq-attack-body">
+  <p class="sq-attack-header">
+    <strong>{{attackerName}}</strong> attacks with <strong>{{weaponName}}</strong>
+  </p>
+  <p class="sq-attack-stats">
+    A{{attacks}}{{#if ap}} · AP({{ap}}){{/if}}{{#if special}} · {{special}}{{/if}}
+  </p>
+
+  {{#if hasTargets}}
+    <label class="sq-attack-field">
+      <span>Target</span>
+      <select class="sq-target">
+        {{#each targets}}
+        <option value="{{id}}">{{name}}</option>
+        {{/each}}
+      </select>
+    </label>
+
+    <button type="button" class="sq-roll-attack" data-action="rollAttack">
+      Roll attack
+    </button>
+
+    {{#if result.rolled}}
+      <div class="sq-attack-result">
+        Unsaved wounds: <span class="sq-wounds-num">{{result.wounds}}</span>
+      </div>
+      {{#if canApply}}
+        <button type="button" class="sq-apply-wounds" data-action="applyWounds">
+          Apply {{result.wounds}} wound{{#unless (eq result.wounds 1)}}s{{/unless}} to target
+        </button>
+      {{else}}
+        <p class="sq-attack-none">No wounds to apply.</p>
+      {{/if}}
+    {{/if}}
+  {{else}}
+    <p class="sq-empty">No target tokens on the scene.</p>
+  {{/if}}
+</div>

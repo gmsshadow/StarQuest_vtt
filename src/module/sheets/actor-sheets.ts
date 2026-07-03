@@ -1,4 +1,5 @@
 import { rollStatTest } from "../helpers/rolls";
+import { AttackResolver } from "../combat/attack-resolver";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -47,7 +48,7 @@ export class EnemySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const item = (this.document as any).items.get(id);
     if (!item) return;
     const actor = this.document as any;
-    await rollStatTest(actor, `${item.name} — To-Hit`, actor.system.quality, item.system.attacks);
+    new AttackResolver({ attacker: actor, weapon: item }).render(true);
   }
 
   static async #onEditItem(this: EnemySheet, _e: Event, target: HTMLElement) {

@@ -1,5 +1,6 @@
 import { rollStatTest } from "../helpers/rolls";
 import { SQ } from "../helpers/config";
+import { AttackResolver } from "../combat/attack-resolver";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -75,7 +76,7 @@ export class HeroSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const item = this.#getItem(target);
     if (!item) return;
     const actor = this.document as any;
-    await rollStatTest(actor, `${item.name} — To-Hit`, actor.system.quality, item.system.attacks);
+    new AttackResolver({ attacker: actor, weapon: item }).render(true);
   }
 
   static async #onRollSkill(this: HeroSheet, _event: Event, target: HTMLElement) {

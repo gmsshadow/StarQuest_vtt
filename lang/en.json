@@ -14,6 +14,7 @@
   "SQ.AI.Title": "AI Helper",
   "SQ.Activation.Title": "Activate Unit",
   "SQ.Action.Title": "Choose Action",
+  "SQ.Attack.Title": "Resolve Attack",
   "SQ.AI.NearestHero": "Move toward / target the nearest Hero",
   "SQ.AI.Goal": "Pursue the current AI goal / objective",
   "SQ.AI.Shoot": "Shoot",

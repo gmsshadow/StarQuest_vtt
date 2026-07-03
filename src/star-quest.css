@@ -196,6 +196,29 @@
 .sq-action-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
 .sq-action-card .sq-action-name { color: var(--sq-accent, #4fd1c5); font-weight: 700; }
 .sq-action-card .sq-action-hint { font-size: 0.78rem; color: #8a93a3; margin-top: 2px; }
+
+/* --- Attack resolver --- */
+.sq-attack-body { display: flex; flex-direction: column; gap: 8px; padding: 4px; }
+.sq-attack-header { margin: 0; }
+.sq-attack-stats { margin: 0; font-size: 0.78rem; color: #8a93a3; }
+.sq-attack-field { display: flex; align-items: center; gap: 6px; }
+.sq-attack-field > span { flex: 0 0 60px; font-size: 0.8rem; color: #8a93a3; }
+.sq-attack-field select { flex: 1; padding: 4px; }
+.sq-roll-attack, .sq-apply-wounds { padding: 5px 8px; }
+.sq-apply-wounds {
+  background: var(--sq-warn, #e06c75);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.sq-attack-result { font-size: 0.95rem; text-align: center; }
+.sq-attack-result .sq-wounds-num,
+.sq-attack-card .sq-wounds-num { color: var(--sq-warn, #e06c75); font-weight: 700; }
+.sq-attack-none { font-size: 0.8rem; color: #8a93a3; text-align: center; margin: 0; }
+.sq-attack-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
+.sq-attack-card .sq-down-text { color: var(--sq-warn, #e06c75); font-weight: 700; }
 .sq-roll-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
 .sq-roll-header { font-weight: 700; }
 .sq-target { color: #4fd1c5; }

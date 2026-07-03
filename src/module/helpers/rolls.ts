@@ -31,6 +31,12 @@ export async function rollStatTest(
 
   const dice = (roll.dice[0]?.results ?? []).map((r: any) => r.result as number);
   const results: StatTestResult[] = dice.map((face) => {
+    // CORE RULE (do not break when adding modifiers): a natural 6 ALWAYS
+    // succeeds and a natural 1 ALWAYS fails, regardless of any modifiers.
+    // These checks read the RAW die face. All modifiers (AP, Shred, Rending,
+    // etc.) must adjust the `target` number passed in — NEVER the die result —
+    // so that this override remains correct. If a future modifier changes the
+    // die value itself, the natural-1/6 rule would silently break.
     const natural6 = face === 6;
     const natural1 = face === 1;
     const success = natural6 || (!natural1 && face >= target);
