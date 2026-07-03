@@ -50,6 +50,43 @@ function nearestHeroDistance(combat: any, enemyCombatant: any): number {
   return best;
 }
 
+/**
+ * Build a combatant-id -> rank map expressing the full activation order.
+ * Un-activated units rank ahead of activated ones. Within the un-activated
+ * set, heroes take even slots (0,2,4...) and enemies odd slots (1,3,5...),
+ * producing H,E,H,E interleaving; enemies are ordered nearest-hero-first.
+ * Activated units are appended after, preserving the same interleave offset.
+ *
+ * Computed once per sort pass (the comparator just looks up this map), so the
+ * cost is O(n log n) for the enemy distance sort, not per-comparison.
+ */
+function rankMap(combat: any): Map<string, number> {
+  const map = new Map<string, number>();
+  const all = Array.from(combat.combatants ?? []);
+
+  const split = (list: any[]) => {
+    const heroes = list.filter((x) => isHero(x));
+    const enemies = list
+      .filter((x) => !isHero(x))
+      .sort((x, y) => nearestHeroDistance(combat, x) - nearestHeroDistance(combat, y));
+    return { heroes, enemies };
+  };
+
+  // Pending (un-activated) first, then activated — each interleaved internally.
+  const pending = all.filter((x: any) => !isActivated(x));
+  const done = all.filter((x: any) => isActivated(x));
+
+  let base = 0;
+  for (const group of [pending, done]) {
+    const { heroes, enemies } = split(group);
+    heroes.forEach((c, i) => map.set(c.id, base + i * 2));
+    enemies.forEach((c, i) => map.set(c.id, base + i * 2 + 1));
+    // Advance base past this group so the next group sorts strictly after.
+    base += Math.max(heroes.length, enemies.length) * 2 + 2;
+  }
+  return map;
+}
+
 export class StarQuestCombat extends foundry.documents.Combat {
   /**
    * Produce the display / turn order:
@@ -57,42 +94,20 @@ export class StarQuestCombat extends foundry.documents.Combat {
    *   2. Among un-activated units, alternate Hero, Enemy, Hero, Enemy...
    *      Heroes lead. Enemies are ordered nearest-hero-first so the top
    *      enemy is the suggested AI pick.
+   *
+   * IMPORTANT: Foundry calls this as a bare `Array.sort` callback, so `this`
+   * is NOT the combat instance here. Everything is derived from the combatants
+   * themselves (via their shared parent combat), never from `this`.
    */
   _sortCombatants(a: any, b: any): number {
-    // Activated units always sort after un-activated ones.
-    const aDone = isActivated(a);
-    const bDone = isActivated(b);
-    if (aDone !== bDone) return aDone ? 1 : -1;
+    const combat = a?.parent ?? b?.parent;
+    if (!combat) return 0;
 
-    // Build the interleaved order once per sort pass via cached ranks.
-    const rankA = this._activationRank(a);
-    const rankB = this._activationRank(b);
-    if (rankA !== rankB) return rankA - rankB;
-
-    // Stable fallback by name.
-    return (a.name ?? "").localeCompare(b.name ?? "");
-  }
-
-  /**
-   * Rank a combatant within the alternating sequence. Heroes get even slots
-   * (0, 2, 4...), enemies get odd slots (1, 3, 5...), so the merged order is
-   * H, E, H, E. Heroes keep insertion order; enemies are ordered by nearest
-   * hero distance so the closest enemy occupies the first enemy slot.
-   */
-  _activationRank(c: any): number {
-    const pending = this.combatants.filter((x: any) => !isActivated(x));
-    const heroes = pending.filter((x: any) => isHero(x));
-    const enemies = pending
-      .filter((x: any) => !isHero(x))
-      .sort(
-        (x: any, y: any) => nearestHeroDistance(this, x) - nearestHeroDistance(this, y)
-      );
-
-    const hi = heroes.indexOf(c);
-    if (hi !== -1) return hi * 2; // heroes: 0,2,4...
-    const ei = enemies.indexOf(c);
-    if (ei !== -1) return ei * 2 + 1; // enemies: 1,3,5...
-    return Number.MAX_SAFE_INTEGER;
+    const rank = rankMap(combat);
+    const ra = rank.get(a?.id) ?? Number.MAX_SAFE_INTEGER;
+    const rb = rank.get(b?.id) ?? Number.MAX_SAFE_INTEGER;
+    if (ra !== rb) return ra - rb;
+    return (a?.name ?? "").localeCompare(b?.name ?? "");
   }
 
   /** Mark the current combatant activated, then advance. */
