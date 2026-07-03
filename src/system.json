@@ -2,7 +2,7 @@
   "id": "star-quest",
   "title": "Grimdark Future: Star Quest",
   "description": "A Foundry VTT game system for One Page Rules' Grimdark Future: Star Quest \u2014 a solo/co-op hero-based miniature skirmish adventure game.",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14.360"
