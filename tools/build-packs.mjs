@@ -163,6 +163,61 @@ function enemy(name, data, items) {
   };
 }
 
+/**
+ * A gridless Scene backed by a full-image battlemap.
+ * width/height must match the image's pixel dimensions.
+ */
+function scene(name, { src, width, height } = {}) {
+  const _id = rid();
+  return {
+    _id,
+    _key: `!scenes!${_id}`,
+    name,
+    active: false,
+    navigation: true,
+    width,
+    height,
+    padding: 0.25,
+    initial: null,
+    backgroundColor: "#111111",
+    background: { src, offsetX: 0, offsetY: 0, scaleX: 1, scaleY: 1, rotation: 0, tint: null },
+    foreground: null,
+    // grid.type 0 = gridless. size is required by the schema but unused when gridless.
+    grid: {
+      type: 0,
+      size: 100,
+      style: "solidLines",
+      thickness: 1,
+      color: "#000000",
+      alpha: 0.2,
+      distance: 1,
+      units: "\""
+    },
+    tokenVision: false,
+    fog: { exploration: false, overlay: null },
+    globalLight: true,
+    darkness: 0,
+    drawings: [],
+    tokens: [],
+    lights: [],
+    notes: [],
+    sounds: [],
+    regions: [],
+    templates: [],
+    tiles: [],
+    walls: [],
+    playlist: null,
+    playlistSound: null,
+    journal: null,
+    weather: "",
+    folder: null,
+    sort: 0,
+    ownership: { default: 0 },
+    flags: {},
+    _stats: {}
+  };
+}
+
 // --- Build documents --------------------------------------------------------
 
 // Malius — Lvl 1 Commander (Dark Brothers)
@@ -292,4 +347,16 @@ writeDocs("enemies", [warrior]);
 for (const it of refItems) it._key = `!items!${it._id}`;
 writeDocs("rules", refItems);
 
-console.log("Wrote _source for heroes (2), enemies (1), rules (" + refItems.length + ").");
+// Starter scene — gridless, sized to the 1920x1920 battlemap.
+const starterScene = scene("Star Quest — Starter Map", {
+  src: "systems/star-quest/assets/sq-starter-map.jpg",
+  width: 1920,
+  height: 1920
+});
+writeDocs("scenes", [starterScene]);
+
+console.log(
+  "Wrote _source for heroes (2), enemies (1), rules (" +
+    refItems.length +
+    "), scenes (1)."
+);

@@ -26,6 +26,15 @@ Hooks.once("init", () => {
 
   (CONFIG as any).SQ = SQ;
 
+  // Tracks whether the starter scene has been imported into this world, so the
+  // first-launch import runs exactly once and never re-imports if deleted.
+  game.settings.register(SYSTEM_ID, "starterSceneImported", {
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
   // --- Data models ---------------------------------------------------------
   Object.assign(CONFIG.Actor.dataModels, {
     hero: HeroData,
@@ -108,6 +117,29 @@ Hooks.on("getSceneControlButtons", (controls: any) => {
   });
 });
 
-Hooks.once("ready", () => {
+Hooks.once("ready", async () => {
   console.log(`${SYSTEM_ID} | Ready`);
+
+  // First-launch only: import the starter scene from the compendium and
+  // activate it. Guarded by a world flag and gated to the GM so it runs once.
+  try {
+    if (!game.user?.isGM) return;
+    if (game.settings.get(SYSTEM_ID, "starterSceneImported")) return;
+
+    const pack = game.packs?.get(`${SYSTEM_ID}.scenes`);
+    if (!pack) return;
+
+    const index = await pack.getIndex();
+    const entry = index.find((e: any) => e.name?.includes("Starter Map")) ?? index.contents?.[0];
+    if (!entry) return;
+
+    // Skip if a scene of this name already exists (e.g. user imported manually).
+    const already = game.scenes?.find((s: any) => s.name === entry.name);
+    const imported = already ?? (await game.scenes?.importFromCompendium(pack, entry._id));
+
+    await game.settings.set(SYSTEM_ID, "starterSceneImported", true);
+    if (imported && !imported.active) await imported.activate();
+  } catch (err) {
+    console.warn(`${SYSTEM_ID} | Starter scene import skipped:`, err);
+  }
 });

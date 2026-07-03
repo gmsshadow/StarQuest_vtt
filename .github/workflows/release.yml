@@ -81,8 +81,9 @@ jobs:
           cp src/star-quest.css "$OUT/star-quest.css"
           cp -r templates "$OUT/templates"
           cp -r lang "$OUT/lang"
+          cp -r assets "$OUT/assets"
           mkdir -p "$OUT/packs"
-          for p in heroes enemies rules; do
+          for p in heroes enemies rules scenes; do
             cp -r "packs/$p" "$OUT/packs/$p"
             rm -f "$OUT/packs/$p/LOCK"
           done

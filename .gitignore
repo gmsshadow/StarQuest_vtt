@@ -10,6 +10,7 @@ package/
 packs/heroes/
 packs/enemies/
 packs/rules/
+packs/scenes/
 
 # Editor / OS cruft
 .DS_Store
