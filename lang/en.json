@@ -12,6 +12,7 @@
 
   "SQ.Campaign.Title": "Campaign Tracker",
   "SQ.AI.Title": "AI Helper",
+  "SQ.Activation.Title": "Activate Unit",
   "SQ.AI.NearestHero": "Move toward / target the nearest Hero",
   "SQ.AI.Goal": "Pursue the current AI goal / objective",
   "SQ.AI.Shoot": "Shoot",

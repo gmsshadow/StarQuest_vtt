@@ -1,0 +1,21 @@
+<div class="sq-activation-body">
+  <p class="sq-activation-side">{{sideLabel}} — choose a unit to activate</p>
+
+  {{#if hasChoices}}
+    <select class="sq-pick" data-action="pick">
+      {{#each choices}}
+      <option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+      {{/each}}
+    </select>
+
+    <button type="button" class="sq-pick-confirm" data-action="commit">
+      Select unit
+    </button>
+    <p class="sq-activation-hint">
+      Selecting controls that unit's token. Press <strong>Next Turn</strong> in the
+      combat tracker to activate it and pass to the other side.
+    </p>
+  {{else}}
+    <p class="sq-empty">No un-activated units remain on this side.</p>
+  {{/if}}
+</div>

@@ -155,20 +155,27 @@
 .combat-tracker .sq-side-enemy {
   border-left: 3px solid var(--sq-warn, #e06c75);
 }
-.sq-activate-btn {
-  background: transparent;
-  border: none;
+.sq-turn-banner .sq-open-picker {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  padding: 1px 6px;
+  background: var(--sq-panel, #1b212b);
   color: var(--sq-accent, #4fd1c5);
+  border: 1px solid var(--sq-accent-dim, #2c7a75);
+  border-radius: 4px;
   cursor: pointer;
-  padding: 2px 4px;
-  font-size: 0.9rem;
 }
-.sq-activate-btn:hover {
-  color: #fff;
+#combat .sq-pending-pick,
+.combat-tracker .sq-pending-pick {
+  outline: 2px solid var(--sq-accent, #4fd1c5);
+  outline-offset: -2px;
+  border-radius: 4px;
 }
-.sq-activated .sq-activate-btn {
-  color: #8a93a3;
-}
+.sq-activation-body { display: flex; flex-direction: column; gap: 8px; padding: 4px; }
+.sq-activation-side { font-weight: 700; margin: 0; }
+.sq-activation-body select.sq-pick { width: 100%; padding: 4px; }
+.sq-pick-confirm { padding: 4px 8px; }
+.sq-activation-hint { font-size: 0.75rem; color: #8a93a3; margin: 0; }
 .sq-roll-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
 .sq-roll-header { font-weight: 700; }
 .sq-target { color: #4fd1c5; }

@@ -110,33 +110,98 @@ export class StarQuestCombat extends foundry.documents.Combat {
     return (a?.name ?? "").localeCompare(b?.name ?? "");
   }
 
-  /** Mark the current combatant activated, then advance. */
-  async activateCurrent(): Promise<void> {
-    const current = this.combatant;
-    if (current) await current.setFlag("star-quest", "activated", true);
-    await this.nextTurn();
+  /** Public accessor so the picker can order enemies nearest-hero-first. */
+  distanceToNearestHero(combatant: any): number {
+    return nearestHeroDistance(this, combatant);
   }
 
-  /** Reset all activation flags — called at the start of each round. */
+  /** The side currently choosing a unit: "hero" (players first) or "enemy". */
+  get currentSide(): "hero" | "enemy" {
+    return this.getFlag("star-quest", "side") === "enemy" ? "enemy" : "hero";
+  }
+
+  /** True when no un-activated units remain on the given side. */
+  #sideExhausted(side: "hero" | "enemy"): boolean {
+    return !this.combatants.some((c: any) => {
+      const isHero = c.actor?.type === "hero";
+      const activated = c.getFlag?.("star-quest", "activated") === true;
+      return !activated && (side === "hero" ? isHero : !isHero);
+    });
+  }
+
+  /** All units activated → round is complete. */
+  #allActivated(): boolean {
+    return this.combatants.every(
+      (c: any) => c.getFlag?.("star-quest", "activated") === true
+    );
+  }
+
+  /**
+   * Commit the pending pick (flag it activated), then choose the next side and
+   * open its picker. Alternates sides, but if one side is exhausted the other
+   * side keeps going. Called from the Next Turn control.
+   */
+  async nextTurn(): Promise<this> {
+    // 1. Commit the currently-selected unit, if any.
+    const pickId = this.getFlag("star-quest", "pendingPick");
+    if (pickId) {
+      const picked = this.combatants.get(pickId);
+      if (picked) await picked.setFlag("star-quest", "activated", true);
+      await this.unsetFlag("star-quest", "pendingPick");
+    }
+
+    // 2. Round over?
+    if (this.#allActivated()) {
+      await this.nextRound();
+      return this;
+    }
+
+    // 3. Choose the next side: alternate, unless the other side is exhausted.
+    const current = this.currentSide;
+    const other = current === "hero" ? "enemy" : "hero";
+    const next = this.#sideExhausted(other) ? current : other;
+    await this.setFlag("star-quest", "side", next);
+
+    // 4. Advance Foundry's own turn pointer for tracker highlighting, then
+    //    open the picker for the chosen side (GM only).
+    await this.update({ turn: 0 });
+    this.openPicker(next);
+    return this;
+  }
+
+  /** Open the activation picker dialog for a side (GM only). */
+  openPicker(side: "hero" | "enemy"): void {
+    if (!game.user?.isGM) return;
+    // Lazy import avoids a load-order cycle with the combat module.
+    import("./activation-picker").then(({ ActivationPicker }) => {
+      new ActivationPicker(this, side).render(true);
+    });
+  }
+
+  /** Reset all activation flags and clear the pending pick / side. */
   async resetActivations(): Promise<void> {
     const updates = this.combatants.map((c: any) => ({
       _id: c.id,
       "flags.star-quest.activated": false
     }));
     if (updates.length) await this.updateEmbeddedDocuments("Combatant", updates);
+    await this.unsetFlag("star-quest", "pendingPick");
+    await this.setFlag("star-quest", "side", "hero");
   }
 
-  /**
-   * Override round advancement to reset activations and rebuild order.
-   */
+  /** Round advance: reset activations, rebuild order, players lead again. */
   async nextRound(): Promise<this> {
     await this.resetActivations();
-    return super.nextRound();
+    await super.nextRound();
+    this.openPicker("hero");
+    return this;
   }
 
-  /** New combats start without rolling initiative. */
+  /** New combats start without initiative; players pick first. */
   async startCombat(): Promise<this> {
     await this.resetActivations();
-    return super.startCombat();
+    await super.startCombat();
+    this.openPicker("hero");
+    return this;
   }
 }

@@ -1,0 +1,59 @@
+{
+  "_id": "WasfMOAA1XzF7TPK",
+  "_key": "!scenes!WasfMOAA1XzF7TPK",
+  "name": "Star Quest — Starter Map",
+  "active": false,
+  "navigation": true,
+  "width": 1920,
+  "height": 1920,
+  "padding": 0.25,
+  "initial": null,
+  "backgroundColor": "#111111",
+  "background": {
+    "src": "systems/star-quest/assets/sq-starter-map.jpg",
+    "offsetX": 0,
+    "offsetY": 0,
+    "scaleX": 1,
+    "scaleY": 1,
+    "rotation": 0,
+    "tint": null
+  },
+  "foreground": null,
+  "grid": {
+    "type": 0,
+    "size": 40,
+    "style": "solidLines",
+    "thickness": 1,
+    "color": "#000000",
+    "alpha": 0.2,
+    "distance": 1,
+    "units": "\""
+  },
+  "tokenVision": false,
+  "fog": {
+    "exploration": false,
+    "overlay": null
+  },
+  "globalLight": true,
+  "darkness": 0,
+  "drawings": [],
+  "tokens": [],
+  "lights": [],
+  "notes": [],
+  "sounds": [],
+  "regions": [],
+  "templates": [],
+  "tiles": [],
+  "walls": [],
+  "playlist": null,
+  "playlistSound": null,
+  "journal": null,
+  "weather": "",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {}
+}

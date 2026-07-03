@@ -1,0 +1,184 @@
+{
+  "_id": "6IwQXUzB7TrRlOct",
+  "_key": "!actors!6IwQXUzB7TrRlOct",
+  "name": "Osteomandeus",
+  "type": "hero",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "faction": "Human Inquisition",
+    "class": "Instigator (Aspiring Inquisitor)",
+    "level": 1,
+    "xp": 0,
+    "credits": 10,
+    "quality": 5,
+    "defense": 6,
+    "toughness": 9,
+    "strength": 6,
+    "dexterity": 5,
+    "willpower": 5,
+    "power": {
+      "value": 5,
+      "max": 5
+    },
+    "wounds": 0,
+    "isCaster": false,
+    "notes": "<p>90 pts. Credits Stash: 10c. Mission Credits: 0.</p>",
+    "biography": ""
+  },
+  "items": [
+    {
+      "_id": "ddoA2aA1iVY3CwCn",
+      "name": "Heavy Pistol",
+      "type": "weapon",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "range": 12,
+        "attacks": 1,
+        "ap": 1,
+        "special": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.ddoA2aA1iVY3CwCn"
+    },
+    {
+      "_id": "ny5vosNMeYMnn4sX",
+      "name": "Energy Sword",
+      "type": "weapon",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "range": 0,
+        "attacks": 2,
+        "ap": 1,
+        "special": "Rending",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.ny5vosNMeYMnn4sX"
+    },
+    {
+      "_id": "Cz2XtwWfGVLm7i6v",
+      "name": "Inspire",
+      "type": "skill",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "stat": "dexterity",
+        "rollTarget": 0,
+        "cost": 0,
+        "description": "<p>Inspire: Pick two other friendly units within 9\", which each get +1 to their next stat roll.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.Cz2XtwWfGVLm7i6v"
+    },
+    {
+      "_id": "AANNsEPAKmbblDe0",
+      "name": "Song of Health",
+      "type": "skill",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "stat": "willpower",
+        "rollTarget": 0,
+        "cost": 0,
+        "description": "<p>Song of Health: Pick two other friendly heroes within 9\", which each restore 1 wound.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.AANNsEPAKmbblDe0"
+    },
+    {
+      "_id": "xrTH8uI6MLD7vA7f",
+      "name": "Inquisitorial Agent",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Inquisitorial Agent: Once per game, if all models have this rule, this unit may be activated again in a round (it stops being fatigued when activated the second time). Limited to up to one third of eligible units per round.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.xrTH8uI6MLD7vA7f"
+    },
+    {
+      "_id": "oGBaifO1mF3JfZmQ",
+      "name": "Instigated Restoration",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Instigated Restoration: Once per game, when activated, two other heroes within 9\" restore 1 power each.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.oGBaifO1mF3JfZmQ"
+    },
+    {
+      "_id": "oiY0ImfbJ1r3nuiD",
+      "name": "Tough(9)",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Tough(X): Once a model has taken as many wounds as its Tough value, it is killed (removed from play).</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.oiY0ImfbJ1r3nuiD"
+    },
+    {
+      "_id": "xnwzMKnj1a4mAfWG",
+      "name": "Curing Kit",
+      "type": "consumable",
+      "img": "icons/svg/regen.svg",
+      "system": {
+        "uses": {
+          "value": 2,
+          "max": 2
+        },
+        "effect": "<p>Curing Kit: Use with a skill action, then remove. The hero loses all status conditions. May instead be applied to one other hero within 3\".</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!6IwQXUzB7TrRlOct.xnwzMKnj1a4mAfWG"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "prototypeToken": {
+    "name": "Osteomandeus",
+    "actorLink": true,
+    "disposition": 1,
+    "sight": {
+      "enabled": true
+    }
+  },
+  "_stats": {}
+}

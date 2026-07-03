@@ -1,0 +1,117 @@
+{
+  "_id": "nApr775kvzrBaVyO",
+  "_key": "!actors!nApr775kvzrBaVyO",
+  "name": "Warrior",
+  "type": "enemy",
+  "img": "icons/svg/terror.svg",
+  "system": {
+    "quality": 4,
+    "defense": 4,
+    "toughness": 3,
+    "unitSize": 1,
+    "pointCost": 65,
+    "wounds": 0,
+    "notes": "<p>Robot Legion. Base: 32mm.</p>"
+  },
+  "items": [
+    {
+      "_id": "VCpgEJYGOPjm9cUQ",
+      "name": "Reaper Rifle",
+      "type": "weapon",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "range": 18,
+        "attacks": 3,
+        "ap": 1,
+        "special": "Shred",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!nApr775kvzrBaVyO.VCpgEJYGOPjm9cUQ"
+    },
+    {
+      "_id": "sa1gklBe8N89fUDR",
+      "name": "CCW",
+      "type": "weapon",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "range": 0,
+        "attacks": 3,
+        "ap": 0,
+        "special": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!nApr775kvzrBaVyO.sa1gklBe8N89fUDR"
+    },
+    {
+      "_id": "qgzoVjw0wk6XcOK0",
+      "name": "Self-Repair",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Self-Repair: This unit may restore 1 wound at the start of its activation.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!nApr775kvzrBaVyO.qgzoVjw0wk6XcOK0"
+    },
+    {
+      "_id": "4rU0utgs4sXyOURt",
+      "name": "Slow",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Slow: This unit moves at reduced distance (treat Advance/Rush/Charge as shorter, per the army rules).</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!nApr775kvzrBaVyO.4rU0utgs4sXyOURt"
+    },
+    {
+      "_id": "qGQ3bSnENd7EwtYx",
+      "name": "Tough(3)",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Tough(X): Once a model has taken as many wounds as its Tough value, it is killed (removed from play).</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!nApr775kvzrBaVyO.qGQ3bSnENd7EwtYx"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "prototypeToken": {
+    "name": "Warrior",
+    "actorLink": false,
+    "disposition": -1,
+    "sight": {
+      "enabled": false
+    }
+  },
+  "_stats": {}
+}
