@@ -176,11 +176,12 @@ export class StarQuestCombat extends foundry.documents.Combat {
     new ActivationPicker(this, side).render(true);
   }
 
-  /** Reset all activation flags and clear the pending pick / side. */
+  /** Reset all activation flags and clear the pending pick / side / actions. */
   async resetActivations(): Promise<void> {
     const updates = this.combatants.map((c: any) => ({
       _id: c.id,
-      "flags.star-quest.activated": false
+      "flags.star-quest.activated": false,
+      "flags.star-quest.-=action": null
     }));
     if (updates.length) await this.updateEmbeddedDocuments("Combatant", updates);
     await this.unsetFlag("star-quest", "pendingPick");

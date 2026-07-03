@@ -149,6 +149,17 @@ Hooks.on("renderCombatTracker", (_app: any, html: any, data: any) => {
     if (combat.getFlag?.("star-quest", "pendingPick") === id) {
       el.classList.add("sq-pending-pick");
     }
+
+    // Show the declared action (e.g. "Advance") on the row, if chosen.
+    const actionKey = c.getFlag?.("star-quest", "action");
+    if (actionKey && !el.querySelector(".sq-row-action")) {
+      const cfg = (CONFIG as any).SQ?.actions?.[actionKey];
+      const tag = document.createElement("span");
+      tag.className = "sq-row-action";
+      tag.textContent = cfg?.label ?? actionKey;
+      const nameEl = el.querySelector(".token-name, .combatant-name, .name") ?? el;
+      nameEl.appendChild(tag);
+    }
   }
 
   // Banner: whose activation is it, with a button to (re)open the picker.

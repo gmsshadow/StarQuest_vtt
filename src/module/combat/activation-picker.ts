@@ -1,3 +1,5 @@
+import { ActionPicker } from "./action-picker";
+
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
@@ -80,8 +82,13 @@ export class ActivationPicker extends HandlebarsApplicationMixin(ApplicationV2) 
     const id = select?.value ?? this.choices[0]?.id;
     if (!id) return;
     await this.#selectToken(id);
-    ui.notifications?.info("Unit selected. Press Next Turn to activate it.");
     this.close();
+
+    // Chain into the action picker for the chosen unit.
+    const combatant = this.combat.combatants.get(id);
+    if (combatant) {
+      new ActionPicker(this.combat, combatant).render(true);
+    }
   }
 
   /** Record the pending pick on the combat and control that unit's token. */

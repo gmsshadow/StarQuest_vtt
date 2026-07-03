@@ -1,0 +1,19 @@
+<div class="sq-action-body">
+  <p class="sq-action-unit">{{unitName}} — choose an action</p>
+
+  <select class="sq-action">
+    {{#each actions}}
+    <option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+    {{/each}}
+  </select>
+
+  <ul class="sq-action-hints">
+    {{#each actions}}
+    <li><strong>{{label}}</strong> — {{hint}}</li>
+    {{/each}}
+  </ul>
+
+  <button type="button" class="sq-action-confirm" data-action="confirm">
+    Confirm action
+  </button>
+</div>

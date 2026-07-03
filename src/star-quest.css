@@ -176,6 +176,26 @@
 .sq-activation-body select.sq-pick { width: 100%; padding: 4px; }
 .sq-pick-confirm { padding: 4px 8px; }
 .sq-activation-hint { font-size: 0.75rem; color: #8a93a3; margin: 0; }
+
+/* --- Action picker + row tag --- */
+.sq-action-body { display: flex; flex-direction: column; gap: 8px; padding: 4px; }
+.sq-action-unit { font-weight: 700; margin: 0; }
+.sq-action-body select.sq-action { width: 100%; padding: 4px; }
+.sq-action-hints { font-size: 0.72rem; color: #8a93a3; margin: 0; padding-left: 16px; }
+.sq-action-hints li { margin: 1px 0; }
+.sq-action-confirm { padding: 4px 8px; }
+.sq-row-action {
+  margin-left: 6px;
+  font-size: 0.7rem;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: var(--sq-accent-dim, #2c7a75);
+  color: #fff;
+  vertical-align: middle;
+}
+.sq-action-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
+.sq-action-card .sq-action-name { color: var(--sq-accent, #4fd1c5); font-weight: 700; }
+.sq-action-card .sq-action-hint { font-size: 0.78rem; color: #8a93a3; margin-top: 2px; }
 .sq-roll-card { border: 1px solid var(--sq-line, #2c3644); border-radius: 6px; padding: 6px; }
 .sq-roll-header { font-weight: 700; }
 .sq-target { color: #4fd1c5; }

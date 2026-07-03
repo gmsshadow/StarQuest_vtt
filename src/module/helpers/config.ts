@@ -3,6 +3,15 @@
  */
 
 export const SQ = {
+  /** The six activation actions a unit may take. */
+  actions: {
+    rest: { label: "Rest", hint: "Doesn't move or act, restores power." },
+    hold: { label: "Hold", hint: "Doesn't move, can shoot." },
+    advance: { label: "Advance", hint: "Moves 6\" and can shoot after moving." },
+    rush: { label: "Rush", hint: "Moves 12\" but can't shoot." },
+    charge: { label: "Charge", hint: "Moves 12\" into melee." },
+    skill: { label: "Skill", hint: "Doesn't move, uses skill action." }
+  } as Record<string, { label: string; hint: string }>,
   /** The five tracked conditions, used for both UI and Active Effect status icons. */
   conditions: {
     afflicted: "SQ.Condition.Afflicted",
