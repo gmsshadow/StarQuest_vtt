@@ -136,8 +136,12 @@ export class HeroSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Adjust current Power, clamped between 0 and the hero's maximum.
-   * Power cannot be spent below 0 — if a spend would do so, it is blocked.
+   * Adjust current Power. Positive delta restores (clamped to max).
+   *
+   * Per the rules (p.7): if a hero spends or loses more power than it has,
+   * it takes as many wounds as the power it could not pay from its pool.
+   * Power floors at 0 and the shortfall is added to wounds (uncapped —
+   * the Down/killed check compares wounds vs Toughness separately).
    */
   async #adjustPower(delta: number) {
     const actor = this.document as any;
@@ -146,7 +150,14 @@ export class HeroSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const next = cur + delta;
 
     if (next < 0) {
-      ui.notifications?.warn("Not enough Power.");
+      const overflow = -next; // power that couldn't be paid from the pool
+      await actor.update({
+        "system.power.value": 0,
+        "system.wounds": actor.system.wounds + overflow
+      });
+      ui.notifications?.warn(
+        `Out of Power — ${overflow} wound${overflow === 1 ? "" : "s"} taken instead.`
+      );
       return;
     }
     await actor.update({ "system.power.value": Math.min(max, next) });
