@@ -15,6 +15,7 @@ export class EnemySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     },
     actions: {
       rollStat: EnemySheet.#onRollStat,
+      rollWeapon: EnemySheet.#onRollWeapon,
       editItem: EnemySheet.#onEditItem,
       deleteItem: EnemySheet.#onDeleteItem
     }
@@ -39,6 +40,14 @@ export class EnemySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const stat = target.dataset.stat!;
     const actor = this.document as any;
     await rollStatTest(actor, `${stat} Test`, actor.system[stat]);
+  }
+
+  static async #onRollWeapon(this: EnemySheet, _e: Event, target: HTMLElement) {
+    const id = target.closest<HTMLElement>("[data-item-id]")?.dataset.itemId;
+    const item = (this.document as any).items.get(id);
+    if (!item) return;
+    const actor = this.document as any;
+    await rollStatTest(actor, `${item.name} — To-Hit`, actor.system.quality, item.system.attacks);
   }
 
   static async #onEditItem(this: EnemySheet, _e: Event, target: HTMLElement) {

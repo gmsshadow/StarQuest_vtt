@@ -1,0 +1,181 @@
+{
+  "_id": "Dd45iNce3r4ffB5K",
+  "_key": "!actors!Dd45iNce3r4ffB5K",
+  "name": "Malius",
+  "type": "hero",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "faction": "Dark Brothers",
+    "class": "Commander (Aspiring Dark Master Brother)",
+    "level": 1,
+    "xp": 0,
+    "credits": 0,
+    "quality": 4,
+    "defense": 6,
+    "toughness": 9,
+    "strength": 6,
+    "dexterity": 6,
+    "willpower": 4,
+    "power": {
+      "value": 4,
+      "max": 4
+    },
+    "wounds": 0,
+    "isCaster": false,
+    "notes": "<p>140 pts. Mission Credits: 0.</p>",
+    "biography": ""
+  },
+  "items": [
+    {
+      "_id": "5IdJtjWfnaEazYLI",
+      "name": "Energy Fist",
+      "type": "weapon",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "range": 0,
+        "attacks": 2,
+        "ap": 4,
+        "special": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.5IdJtjWfnaEazYLI"
+    },
+    {
+      "_id": "48Tfx0Am9SRv0i3Z",
+      "name": "Fusion Pistol",
+      "type": "weapon",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "range": 6,
+        "attacks": 1,
+        "ap": 4,
+        "special": "Deadly(3)",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.48Tfx0Am9SRv0i3Z"
+    },
+    {
+      "_id": "qlXQ5WWO65e1gVBA",
+      "name": "Ancient Weapon",
+      "type": "skill",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "stat": "willpower",
+        "rollTarget": 0,
+        "cost": 0,
+        "description": "<p>Ancient Weapon: Pick one other friendly unit within 6\", which gets +2 to hit rolls the next time it attacks.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.qlXQ5WWO65e1gVBA"
+    },
+    {
+      "_id": "A4M0bXBDXLzN31aL",
+      "name": "Commanding Shout",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Commanding Shout: Once per game, when activated, two heroes within 3\" may move by up to 6\" each.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.A4M0bXBDXLzN31aL"
+    },
+    {
+      "_id": "KAjR3SElhNp5UaXK",
+      "name": "Darkborn",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Darkborn: Enemies get -4\" range (min 6\") when shooting units where all models have this rule, and -2\" movement (min 6\") when charging them.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.KAjR3SElhNp5UaXK"
+    },
+    {
+      "_id": "COEdkdP65YK4g5eS",
+      "name": "Fearless",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Fearless: When a unit where all models have this rule fails a morale test, roll one die. On a 4+ it counts as passed instead.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.COEdkdP65YK4g5eS"
+    },
+    {
+      "_id": "GksIamX4v4ogcQWK",
+      "name": "Tough(9)",
+      "type": "specialRule",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "description": "<p>Tough(X): Once a model has taken as many wounds as its Tough value, it is killed (removed from play).</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.GksIamX4v4ogcQWK"
+    },
+    {
+      "_id": "LQH0RnvjfjdX1hMM",
+      "name": "Curing Kit",
+      "type": "consumable",
+      "img": "icons/svg/regen.svg",
+      "system": {
+        "uses": {
+          "value": 2,
+          "max": 2
+        },
+        "effect": "<p>Curing Kit: Use with a skill action, then remove. The hero loses all status conditions. May instead be applied to one other hero within 3\".</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {},
+      "_key": "!actors.items!Dd45iNce3r4ffB5K.LQH0RnvjfjdX1hMM"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "prototypeToken": {
+    "name": "Malius",
+    "actorLink": true,
+    "disposition": 1,
+    "sight": {
+      "enabled": true
+    }
+  },
+  "_stats": {}
+}

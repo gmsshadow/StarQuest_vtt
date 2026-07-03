@@ -1,0 +1,15 @@
+{
+  "_id": "fwOPz2PXUyBh2euY",
+  "name": "Shred",
+  "type": "specialRule",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "description": "<p>Shred: Targets get -1 to Defense rolls when blocking hits from this weapon.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!fwOPz2PXUyBh2euY"
+}

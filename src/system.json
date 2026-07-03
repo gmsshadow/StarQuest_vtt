@@ -1,8 +1,8 @@
 {
   "id": "star-quest",
   "title": "Grimdark Future: Star Quest",
-  "description": "A Foundry VTT game system for One Page Rules' Grimdark Future: Star Quest — a solo/co-op hero-based miniature skirmish adventure game.",
-  "version": "0.5.5",
+  "description": "A Foundry VTT game system for One Page Rules' Grimdark Future: Star Quest \u2014 a solo/co-op hero-based miniature skirmish adventure game.",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14.360"
@@ -93,6 +93,6 @@
   "primaryTokenAttribute": "wounds",
   "url": "https://github.com/gmsshadow/StarQuest_vtt",
   "manifest": "https://github.com/gmsshadow/StarQuest_vtt/releases/latest/download/system.json",
-  "download": "https://github.com/gmsshadow/StarQuest_vtt/releases/download/v0.5.5/star-quest.zip",
+  "download": "https://github.com/gmsshadow/StarQuest_vtt/releases/latest/download/star-quest.zip",
   "background": "systems/star-quest/assets/sq-background.png"
 }

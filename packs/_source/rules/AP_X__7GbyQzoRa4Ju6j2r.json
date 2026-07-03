@@ -1,0 +1,15 @@
+{
+  "_id": "7GbyQzoRa4Ju6j2r",
+  "name": "AP(X)",
+  "type": "specialRule",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "description": "<p>AP(X): Targets get -X to Defense rolls when blocking hits.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!7GbyQzoRa4Ju6j2r"
+}
