@@ -1,0 +1,15 @@
+{
+  "_id": "XULUEVmIposNSPDk",
+  "name": "Tough(X)",
+  "type": "specialRule",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "description": "<p>Tough(X): Once a model has taken as many wounds as its Tough value, it is killed (removed from play).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "_stats": {},
+  "_key": "!items!XULUEVmIposNSPDk"
+}

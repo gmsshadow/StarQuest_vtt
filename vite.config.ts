@@ -14,7 +14,10 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        assetFileNames: "star-quest.[ext]"
+        assetFileNames: "star-quest.[ext]",
+        // Force everything into the single entry file. Prevents dynamic imports
+        // from being split into separate chunks that the package won't ship.
+        inlineDynamicImports: true
       }
     }
   }

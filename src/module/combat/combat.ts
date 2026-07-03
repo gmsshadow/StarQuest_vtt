@@ -13,6 +13,8 @@
  * alternating sequence directly, rather than assigning initiative numbers.
  */
 
+import { ActivationPicker } from "./activation-picker";
+
 const HERO = "hero";
 const ENEMY = "enemy";
 
@@ -172,10 +174,7 @@ export class StarQuestCombat extends foundry.documents.Combat {
   /** Open the activation picker dialog for a side (GM only). */
   openPicker(side: "hero" | "enemy"): void {
     if (!game.user?.isGM) return;
-    // Lazy import avoids a load-order cycle with the combat module.
-    import("./activation-picker").then(({ ActivationPicker }) => {
-      new ActivationPicker(this, side).render(true);
-    });
+    new ActivationPicker(this, side).render(true);
   }
 
   /** Reset all activation flags and clear the pending pick / side. */
